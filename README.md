@@ -1,0 +1,1 @@
+This is core php appliation build for expence tracking,The main focus is to follow standars and file structure use in industry by professinals, here I try to build my own Framework not that much powerfull as laravel or anyother but this helps me to get deep knowledge of how php frameworks work
