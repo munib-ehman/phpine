@@ -26,7 +26,7 @@ class Router
       return $path;
    }
 
-   public function dispatch($path, $method)
+   public function dispatch($path, $method, Container $container = null)
    {
       $path = $this->normalizePath($path);
       $method = strtoupper($method);
@@ -41,7 +41,8 @@ class Router
 
          [$class, $function] = $route['controller'];
 
-         $classIntance = new $class;
+         $classIntance = $container ? $container->resolve($class) :  new $class;
+
          if ($classIntance) {
             $classIntance->{$function}();
          }
