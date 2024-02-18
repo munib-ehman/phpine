@@ -7,20 +7,20 @@ namespace App\Controllers;
 use Framework\TemplateEngine;
 use App\Config\Paths;
 
-class HomeController
+class AboutController
 {
-
     private TemplateEngine $view;
-
 
     public function __construct()
     {
         $this->view = new TemplateEngine(Paths::VIEW);
     }
 
-    public function home()
+    public function index()
     {
-        $title = "Hello Muneeb";
-        echo $this->view->render('index.php', ['title' => escape($title)]);
+        $title = "About";
+        echo $this->view->render('about.php', [
+            'title' => escape($title),
+        ]);
     }
 }
