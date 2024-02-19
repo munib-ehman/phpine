@@ -16,9 +16,7 @@ class AboutController
 
     public function index()
     {
-        $title = "About";
-        echo $this->view->render('about.php', [
-            'title' => escape($title),
-        ]);
+        $this->view->addGloablTemplateVariables('title', 'About page');
+        echo $this->view->render('about.php');
     }
 }

@@ -6,6 +6,7 @@ namespace Framework;
 
 class TemplateEngine
 {
+    private array $globalTemplateVariables = [];
 
     public function __construct(private string $basePath)
     {
@@ -14,6 +15,7 @@ class TemplateEngine
     public function render(string $template, array $data = [])
     {
         extract($data, EXTR_SKIP);
+        extract($this->globalTemplateVariables, EXTR_SKIP);
 
         ob_start();
         include $this->resolve($template);
@@ -25,5 +27,10 @@ class TemplateEngine
     public function resolve(string $path)
     {
         return "{$this->basePath}/{$path}";
+    }
+
+    public function addGloablTemplateVariables(string $key, mixed $value)
+    {
+        $this->globalTemplateVariables[$key] = $value;
     }
 }

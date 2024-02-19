@@ -43,4 +43,9 @@ class App
     {
         $this->router->add('delete', $path, $controller);
     }
+
+    public function addMiddleware(string $middleware)
+    {
+        $this->router->addMiddleware($middleware);
+    }
 }
