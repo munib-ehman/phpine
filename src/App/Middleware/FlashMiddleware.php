@@ -16,6 +16,8 @@ class FlashMiddleware implements MiddlewareInterface
     {
         $this->view->addGloablTemplateVariables('errors', $_SESSION['errors'] ?? []);
         unset($_SESSION['errors']);
+        $this->view->addGloablTemplateVariables('old', $_SESSION['old'] ?? []);
+        unset($_SESSION['old']);
         $next();
     }
 }
