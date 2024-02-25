@@ -8,8 +8,8 @@ class App
 {
 
     private Router $router;
-
     private Container $container;
+
     public function __construct(string $definationPath = null)
     {
         $this->router = new Router();
