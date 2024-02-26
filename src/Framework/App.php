@@ -27,13 +27,15 @@ class App
         $this->router->dispatch($path, $method, $this->container);
     }
 
-    public function get(string $path, array $controller)
+    public function get(string $path, array $controller): App
     {
         $this->router->add('get', $path, $controller);
+        return $this;
     }
-    public function post(string $path, $controller)
+    public function post(string $path, $controller): App
     {
         $this->router->add('post', $path, $controller);
+        return $this;
     }
     public function put(string $path, $controller)
     {
@@ -47,5 +49,9 @@ class App
     public function addMiddleware(string $middleware)
     {
         $this->router->addMiddleware($middleware);
+    }
+    public function add(string $middleware)
+    {
+        $this->router->addRouteMiddleware($middleware);
     }
 }

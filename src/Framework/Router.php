@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Framework;
 
+use PDO;
+
 class Router
 {
    private array $middlewares = [];
@@ -16,6 +18,7 @@ class Router
          'path' => $path,
          'method' => strtoupper($method),
          'controller' => $controller,
+         'middlewares' => [],
       ];
    }
 
@@ -47,7 +50,9 @@ class Router
          if ($classIntance) {
             $action = fn () => $classIntance->{$function}();
 
-            foreach ($this->middlewares as $middleware) {
+            $allMiddleware = [...$route['middlewares'], ...$this->middlewares];
+
+            foreach ($allMiddleware as $middleware) {
                $middleware = $container ? $container->resolve($middleware) : new $middleware;
                $action = fn () => $middleware->process($action);
             }
@@ -60,5 +65,10 @@ class Router
    public function addMiddleware(string $middleware)
    {
       $this->middlewares[] = $middleware;
+   }
+   public function addRouteMiddleware(string $middleware)
+   {
+      $lastIndex = array_key_last($this->routes);
+      $this->routes[$lastIndex]['middlewares'][] = $middleware;
    }
 }

@@ -40,5 +40,31 @@ class UserService
                 'social_media_url' => $userData['socialMediaUrl']
             ]
         );
+        session_regenerate_id();
+
+        $_SESSION['user'] = $this->db->id();
+    }
+
+    public function login(array $userData)
+    {
+        $user = $this->db->query(
+            "SELECT * FROM users WHERE email=:email",
+            ['email' => $userData['email']]
+        )->find();
+
+        $validPassword = password_verify($userData['password'], $user['password'] ?? []);
+
+        if (!$validPassword || !$user) {
+            throw new ValidationException(['password' => ['Invalid crendentials']]);
+        }
+
+        session_regenerate_id();
+        $_SESSION['user'] = $user['id'];
+    }
+
+    public function logout()
+    {
+        unset($_SESSION['user']);
+        session_regenerate_id();
     }
 }
