@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use App\Config\Paths;
+use App\Services\ReceiptService;
+use App\Services\TransactionService;
 use App\Services\UserService;
 use App\Services\ValidatorService;
 use Framework\Container;
@@ -20,5 +22,13 @@ return [
     UserService::class => function (Container $container) {
         $db = $container->get(Database::class);
         return new UserService($db);
+    },
+    TransactionService::class => function (Container $container) {
+        $db = $container->get(Database::class);
+        return new TransactionService($db);
+    },
+    ReceiptService::class => function (Container $container) {
+        $db = $container->get(Database::class);
+        return new ReceiptService($db);
     }
 ];

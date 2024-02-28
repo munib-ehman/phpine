@@ -41,9 +41,10 @@ class App
     {
         $this->router->add('put', $path, $controller);
     }
-    public function delete(string $path, $controller)
+    public function delete(string $path, $controller): APp
     {
-        $this->router->add('delete', $path, $controller);
+        $this->router->add('DELETE', $path, $controller);
+        return $this;
     }
 
     public function addMiddleware(string $middleware)
